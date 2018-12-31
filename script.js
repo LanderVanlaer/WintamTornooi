@@ -69,6 +69,8 @@ function startUp() {
   u9PouleBPunten();
   u9PouleAFinale();
   u9PouleBFinale();
+  u8Winnaars();
+  u9Winnaars();
 }
 
 function pushTeamCodes() {
@@ -1619,4 +1621,56 @@ function u9PouleAFinale() {
   }
   document.getElementById("39.4").innerHTML = u9plaatsen1Team;
   U9PouleBu9FinaleTeams.push(u9plaatsen1Team);
+}
+
+
+function getGoals(id) {
+  let documentGoals = document.getElementById(id).innerHTML;
+  let goalsArray = documentGoals.split("");
+  let index;
+  if (goalsArray.includes("(")) {
+    index = goalsArray.findIndex(function (value) { return value == "(" });
+    for (let i = 0; i <= index; i++) {
+      goalsArray.shift();
+    }
+    goalsArray.pop();
+    return Number(goalsArray.join(""));
+  } else {
+    return Number(documentGoals);
+  }
+}
+
+function u8Winnaars() {
+  let getal = 30;
+  for (let i = 31; i <= 34; i++) {
+    let id = i - getal;
+    if (getGoals(i + ".6") > getGoals(i + ".7")) {
+      document.getElementById("1.score." + id).innerHTML = document.getElementById(i + ".4").innerHTML;
+      id = id + 1;
+      document.getElementById("1.score." + id).innerHTML = document.getElementById(i + ".5").innerHTML;
+    } else {
+      document.getElementById("1.score." + id).innerHTML = document.getElementById(i + ".5").innerHTML;
+      id = id + 1;
+      document.getElementById("1.score." + id).innerHTML = document.getElementById(i + ".4").innerHTML;
+    }
+    getal--;
+  }
+}
+
+
+function u9Winnaars() {
+  let getal = 35;
+  for (let i = 36; i <= 39; i++) {
+    let id = i - getal;
+    if (getGoals(i + ".6") > getGoals(i + ".7")) {
+      document.getElementById("2.score." + id).innerHTML = document.getElementById(i + ".4").innerHTML;
+      id = id + 1;
+      document.getElementById("2.score." + id).innerHTML = document.getElementById(i + ".5").innerHTML;
+    } else {
+      document.getElementById("2.score." + id).innerHTML = document.getElementById(i + ".5").innerHTML;
+      id = id + 1;
+      document.getElementById("2.score." + id).innerHTML = document.getElementById(i + ".4").innerHTML;
+    }
+    getal--;
+  }
 }
